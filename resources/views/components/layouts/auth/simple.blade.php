@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+
+<head>
+    @include('partials.head')
+</head>
+
+<body class="min-h-screen bg-[url(/public/img/bg.jpeg)] bg-cover bg-center bg-no-repeat bg-white antialiased">
+    <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+        <div class="flex w-full max-w-sm flex-col gap-2">
+            <div class="flex flex-col gap-6">
+                <x-card>{{ $slot }}</x-card>
+            </div>
+        </div>
+    </div>
+    @fluxScripts
+</body>
+
+</html>
