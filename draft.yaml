@@ -1,0 +1,367 @@
+models:
+  # ============================================
+  # CATÁLOGOS / MAESTROS
+  # ============================================
+  Goal:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget, SimulatedExpense #relaciones con otros modelos
+
+  Process:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget #relaciones con otros modelos
+
+  Product:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget #relaciones con otros modelos
+
+  Activity:
+    code: string:20 nullable #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget #relaciones con otros modelos
+
+  Purpose:
+    code: string:20 nullable #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget #relaciones con otros modelos
+
+  Financing:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: AnnualInstitutionalBudget, SimulatedExpense #relaciones con otros modelos
+
+  Classifier:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    alternate_name: string:255 nullable #Nombre alternativo
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: Subclassifier, AnnualInstitutionalBudget, SimulatedExpense #relaciones con otros modelos
+
+  Subclassifier:
+    classifier_id: id foreign:classifiers #Relacion con clasificador
+    code: string:20 #Codigo
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true
+    relationships:
+      belongsTo: Classifier #Relacion con clasificador
+      hasMany: ExpenseAllocation #Relacion con otros modelos
+
+  Office:
+    code: string:20 unique #Codigo
+    name: string:255 #Nombre
+    short_name: string:100 nullable #Nombre corto
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      hasMany: Subunit, OfficeBudgetAssignment, SimulatedExpense #relaciones con otros modelos
+
+  Subunit:
+    office_id: id foreign:offices onDelete:restrict #Relacion con oficina
+    code: string:20 nullable #Codigo
+    name: string:255 nullable #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true #Tiempos de creacion y actualizacion
+    relationships:
+      belongsTo: Office #Relacion con oficina
+      hasMany: OfficeBudgetAssignment #relaciones con otros modelos
+
+  Document:
+    name: string:255 #Nombre
+    description: text nullable # Descripcion
+    is_active: boolean default:true #Si esta activo
+    softDeletes: true #Evita que se borren fisicamente
+    timestamps: true
+    relationships:
+      hasMany: ExpenseAllocation #Relacion con otros modelos
+
+  # ============================================
+  # TABLAS PRINCIPALES (TRANSACCIONALES)
+  # ============================================
+  AnnualInstitutionalBudget:
+    year: year index
+    goal_id: id foreign:goals nullable onDelete:restrict
+    process_id: id foreign:processes nullable onDelete:restrict
+    product_id: id foreign:products nullable onDelete:restrict
+    activity_id: id foreign:activities nullable onDelete:restrict
+    purpose_id: id foreign:purposes nullable onDelete:restrict
+    financing_id: id foreign:financings nullable onDelete:restrict
+    classifier_id: id foreign:classifiers nullable onDelete:restrict
+    amount: decimal:20,2
+    version: integer default:1
+    status: enum:active,superseded,cancelled default:active index
+    parent_id: id foreign:annual_institutional_budgets nullable onDelete:null
+    superseded_by: id foreign:annual_institutional_budgets nullable onDelete:null
+    modification_type: enum:initial,increase,decrease,adjustment default:initial
+    modification_reason: text nullable
+    resolution_number: string:100 nullable
+    created_by: id foreign:users nullable onDelete:null
+    modified_by: id foreign:users nullable onDelete:null
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: Goal, Process, Product, Activity, Purpose, Financing, Classifier, User:created_by, User:modified_by
+      hasMany: OfficeBudgetAssignment
+
+  OfficeBudgetAssignment:
+    year: year index
+    office_id: id foreign:offices onDelete:restrict
+    subunit_id: id foreign:subunits nullable onDelete:null
+    annual_institutional_budget_id: id foreign:annual_institutional_budgets onDelete:restrict
+    amount: decimal:20,2
+    version: integer default:1
+    status: enum:active,superseded,transferred,cancelled default:active index
+    parent_id: id foreign:office_budget_assignments nullable onDelete:null
+    superseded_by: id foreign:office_budget_assignments nullable onDelete:null
+    assignment_type: enum:initial,modification,transfer_in,transfer_out default:initial
+    comment: text nullable
+    related_transfer_id: id nullable
+    assigned_by: id foreign:users nullable onDelete:null
+    modified_by: id foreign:users nullable onDelete:null
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: Office, Subunit, AnnualInstitutionalBudget, User:assigned_by, User:modified_by
+      hasMany: ExpenseAllocation
+
+  ExpenseAllocation:
+    year: year index
+    expense_code: string:50 unique
+    office_budget_assignment_id: id foreign:office_budget_assignments onDelete:restrict
+    document_id: id foreign:documents nullable onDelete:null
+    subclassifier_id: id foreign:subclassifiers nullable onDelete:null
+    type: enum:goods,services,others default:others
+    report_number: string:255 nullable
+    siaf_code: string:255 nullable
+    reference_document: string:255 nullable
+    reference_document_2: string:255 nullable
+    reference_document_3: string:255 nullable
+    date: date
+    amount: decimal:20,2
+    description: text nullable
+    subject: text nullable
+    notes: text nullable
+    status: enum:draft,pending,approved,rejected,cancelled default:approved index
+    created_by: id foreign:users onDelete:restrict
+    approved_by: id foreign:users nullable onDelete:null
+    approved_at: timestamp nullable
+    rejection_reason: text nullable
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: OfficeBudgetAssignment, Document, Subclassifier, User:created_by, User:approved_by
+
+  # ============================================
+  # CONTROL Y FLUJO
+  # ============================================
+  BudgetTransfer:
+    year: year index
+    transfer_code: string:50 unique
+    transaction_number: integer nullable
+    origin_office_budget_assignment_id: id foreign:office_budget_assignments onDelete:restrict
+    origin_office_id: id foreign:offices onDelete:restrict
+    origin_annual_budget_id: id foreign:annual_institutional_budgets onDelete:restrict
+    destination_office_budget_assignment_id: id foreign:office_budget_assignments onDelete:restrict
+    destination_office_id: id foreign:offices onDelete:restrict
+    destination_annual_budget_id: id foreign:annual_institutional_budgets onDelete:restrict
+    amount: decimal:20,2
+    reason: text
+    resolution_number: string:100 nullable
+    status: enum:draft,pending,approved,rejected,executed default:pending index
+    requested_by: id foreign:users onDelete:restrict
+    approved_by: id foreign:users nullable onDelete:null
+    requested_at: timestamp useCurrent
+    approved_at: timestamp nullable
+    executed_at: timestamp nullable
+    rejection_reason: text nullable
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: User:requested_by, User:approved_by
+
+  ApprovalRequest:
+    year: year index
+    request_code: string:50 unique
+    request_type: enum:budget_assignment_create,budget_assignment_update,budget_assignment_delete,expense_create,expense_update,expense_delete,budget_modification,catalog_create,catalog_update,catalog_delete,transfer_request
+    related_table: string:100
+    related_id: id nullable
+    request_data: json
+    current_data: json nullable
+    office_id: id foreign:offices nullable onDelete:null
+    amount: decimal:20,2 nullable
+    reason: text nullable
+    status: enum:draft,pending,approved,rejected,cancelled default:pending index
+    requested_by: id foreign:users onDelete:restrict
+    reviewed_by: id foreign:users nullable onDelete:null
+    requested_at: timestamp useCurrent
+    reviewed_at: timestamp nullable
+    rejection_reason: text nullable
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: Office, User:requested_by, User:reviewed_by
+
+  ActivityLog:
+    year: year index
+    user_id: id foreign:users onDelete:restrict
+    user_name: string:255
+    user_role: string:100 nullable
+    action: string:50
+    subject_type: string:100
+    subject_id: id
+    description: text nullable
+    old_values: json nullable
+    new_values: json nullable
+    ip_address: string:45 nullable
+    user_agent: text nullable
+    timestamps: false
+    created_at: timestamp useCurrent
+    relationships:
+      belongsTo: User
+
+  # ============================================
+  # IMPORTACIÓN Y SIMULACIÓN
+  # ============================================
+  ImportBatch:
+    year: year index
+    batch_code: string:50 unique
+    import_type: enum:annual_budget,office_assignments,expenses,catalog_data
+    file_name: string:255
+    file_path: string:500
+    file_size: integer nullable
+    total_rows: integer
+    processed_rows: integer default:0
+    successful_rows: integer default:0
+    failed_rows: integer default:0
+    status: enum:pending,validating,processing,completed,failed,cancelled default:pending index
+    errors: json nullable
+    validation_summary: json nullable
+    imported_by: id foreign:users onDelete:restrict
+    started_at: timestamp nullable
+    completed_at: timestamp nullable
+    timestamps: true
+    relationships:
+      belongsTo: User:imported_by
+      hasMany: ImportStaging
+
+  ImportStaging:
+    import_batch_id: id foreign:import_batches onDelete:cascade
+    row_number: integer
+    raw_data: json
+    parsed_data: json nullable
+    status: enum:pending,validated,imported,failed,skipped default:pending index
+    validation_errors: json nullable
+    imported_record_type: string:100 nullable
+    imported_record_id: id nullable
+    timestamps: false
+    created_at: timestamp useCurrent
+    relationships:
+      belongsTo: ImportBatch
+
+  SimulatedExpense:
+    year: year index
+    simulation_type: enum:procurement,accounting
+    office_id: id foreign:offices onDelete:restrict
+    goal_id: id foreign:goals nullable onDelete:null
+    financing_id: id foreign:financings nullable onDelete:null
+    classifier_id: id foreign:classifiers nullable onDelete:null
+    description: text nullable
+    amount: decimal:20,2
+    estimated_date: date nullable
+    notes: text nullable
+    is_approved: boolean default:false
+    converted_to_real: boolean default:false
+    real_expense_allocation_id: id foreign:expense_allocations nullable onDelete:null
+    created_by: id foreign:users onDelete:restrict
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: Office, Goal, Financing, Classifier, User:created_by, ExpenseAllocation:real_expense_allocation_id
+
+  # ============================================
+  # AUXILIARES
+  # ============================================
+  SequenceCounter:
+    year: year
+    sequence_type: enum:expense,transfer,approval_request,import_batch,simulation
+    current_value: integer default:0
+    last_generated_at: timestamp nullable
+    last_generated_code: string:50 nullable
+    timestamps: true
+
+  BudgetSummaryCache:
+    year: year index
+    office_id: id foreign:offices nullable onDelete:cascade
+    goal_id: id foreign:goals nullable onDelete:cascade
+    financing_id: id foreign:financings nullable onDelete:cascade
+    classifier_id: id foreign:classifiers nullable onDelete:cascade
+    summary_level: enum:institutional,office,goal,financing,classifier,detailed
+    total_budget: decimal:20,2 default:0
+    total_assigned: decimal:20,2 default:0
+    total_executed: decimal:20,2 default:0
+    total_available: decimal:20,2 default:0
+    execution_percentage: decimal:5,2 nullable
+    last_calculated_at: timestamp
+    is_valid: boolean default:true
+    timestamps: true
+    relationships:
+      belongsTo: Office, Goal, Financing, Classifier
+
+# ============================================
+# CONTROLADORES Y COMPONENTES LIVEWIRE
+# ============================================
+
+# No definir nada aqui, se crearan manualmente componentes livewire
+
+# ============================================
+# SEEDERS
+# ============================================
+seeders: Goal
+  Process
+  Product
+  Financing
+  Classifier
+  Office
+  Document

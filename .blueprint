@@ -1,0 +1,92 @@
+created:
+    - database/factories/GoalFactory.php
+    - database/factories/ProcessFactory.php
+    - database/factories/ProductFactory.php
+    - database/factories/ActivityFactory.php
+    - database/factories/PurposeFactory.php
+    - database/factories/FinancingFactory.php
+    - database/factories/ClassifierFactory.php
+    - database/factories/SubclassifierFactory.php
+    - database/factories/OfficeFactory.php
+    - database/factories/SubunitFactory.php
+    - database/factories/DocumentFactory.php
+    - database/factories/AnnualInstitutionalBudgetFactory.php
+    - database/factories/OfficeBudgetAssignmentFactory.php
+    - database/factories/ExpenseAllocationFactory.php
+    - database/factories/BudgetTransferFactory.php
+    - database/factories/ApprovalRequestFactory.php
+    - database/factories/ActivityLogFactory.php
+    - database/factories/ImportBatchFactory.php
+    - database/factories/ImportStagingFactory.php
+    - database/factories/SimulatedExpenseFactory.php
+    - database/factories/SequenceCounterFactory.php
+    - database/factories/BudgetSummaryCacheFactory.php
+    - database/migrations/2025_11_15_010337_create_goals_table.php
+    - database/migrations/2025_11_15_010338_create_processes_table.php
+    - database/migrations/2025_11_15_010339_create_products_table.php
+    - database/migrations/2025_11_15_010340_create_activities_table.php
+    - database/migrations/2025_11_15_010341_create_purposes_table.php
+    - database/migrations/2025_11_15_010342_create_financings_table.php
+    - database/migrations/2025_11_15_010343_create_classifiers_table.php
+    - database/migrations/2025_11_15_010344_create_subclassifiers_table.php
+    - database/migrations/2025_11_15_010345_create_offices_table.php
+    - database/migrations/2025_11_15_010346_create_subunits_table.php
+    - database/migrations/2025_11_15_010347_create_documents_table.php
+    - database/migrations/2025_11_15_010348_create_annual_institutional_budgets_table.php
+    - database/migrations/2025_11_15_010349_create_office_budget_assignments_table.php
+    - database/migrations/2025_11_15_010350_create_expense_allocations_table.php
+    - database/migrations/2025_11_15_010351_create_budget_transfers_table.php
+    - database/migrations/2025_11_15_010352_create_approval_requests_table.php
+    - database/migrations/2025_11_15_010353_create_activity_logs_table.php
+    - database/migrations/2025_11_15_010354_create_import_batches_table.php
+    - database/migrations/2025_11_15_010355_create_import_stagings_table.php
+    - database/migrations/2025_11_15_010356_create_simulated_expenses_table.php
+    - database/migrations/2025_11_15_010357_create_sequence_counters_table.php
+    - database/migrations/2025_11_15_010358_create_budget_summary_caches_table.php
+    - app/Models/Goal.php
+    - app/Models/Process.php
+    - app/Models/Product.php
+    - app/Models/Activity.php
+    - app/Models/Purpose.php
+    - app/Models/Financing.php
+    - app/Models/Classifier.php
+    - app/Models/Subclassifier.php
+    - app/Models/Office.php
+    - app/Models/Subunit.php
+    - app/Models/Document.php
+    - app/Models/AnnualInstitutionalBudget.php
+    - app/Models/OfficeBudgetAssignment.php
+    - app/Models/ExpenseAllocation.php
+    - app/Models/BudgetTransfer.php
+    - app/Models/ApprovalRequest.php
+    - app/Models/ActivityLog.php
+    - app/Models/ImportBatch.php
+    - app/Models/ImportStaging.php
+    - app/Models/SimulatedExpense.php
+    - app/Models/SequenceCounter.php
+    - app/Models/BudgetSummaryCache.php
+    - database/seeders/GoalProcessProductFinancingClassifierOfficeDocumentSeeder.php
+models:
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', two_factor_confirmed_at: 'timestamp nullable', remember_token: 'string:100 nullable' }
+    Goal: { code: 'string:20 unique', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: 'AnnualInstitutionalBudget, SimulatedExpense' } }
+    Process: { code: 'string:20 unique', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: AnnualInstitutionalBudget } }
+    Product: { code: 'string:20 unique', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: AnnualInstitutionalBudget } }
+    Activity: { code: 'string:20 nullable', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: AnnualInstitutionalBudget } }
+    Purpose: { code: 'string:20 nullable', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: AnnualInstitutionalBudget } }
+    Financing: { code: 'string:20 unique', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: 'AnnualInstitutionalBudget, SimulatedExpense' } }
+    Classifier: { code: 'string:20 unique', name: 'string:255', alternate_name: 'string:255 nullable', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: 'Subclassifier, AnnualInstitutionalBudget, SimulatedExpense' } }
+    Subclassifier: { classifier_id: 'id foreign:classifiers', code: 'string:20', name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: timestamps, relationships: { belongsTo: Classifier, hasMany: ExpenseAllocation } }
+    Office: { code: 'string:20 unique', name: 'string:255', short_name: 'string:100 nullable', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { hasMany: 'Subunit, OfficeBudgetAssignment, SimulatedExpense' } }
+    Subunit: { office_id: 'id foreign:offices onDelete:restrict', code: 'string:20 nullable', name: 'string:255 nullable', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: true, relationships: { belongsTo: Office, hasMany: OfficeBudgetAssignment } }
+    Document: { name: 'string:255', description: 'text nullable', is_active: 'boolean default:true', softDeletes: true, timestamps: timestamps, relationships: { hasMany: ExpenseAllocation } }
+    AnnualInstitutionalBudget: { year: 'year index', goal_id: 'id foreign:goals nullable onDelete:restrict', process_id: 'id foreign:processes nullable onDelete:restrict', product_id: 'id foreign:products nullable onDelete:restrict', activity_id: 'id foreign:activities nullable onDelete:restrict', purpose_id: 'id foreign:purposes nullable onDelete:restrict', financing_id: 'id foreign:financings nullable onDelete:restrict', classifier_id: 'id foreign:classifiers nullable onDelete:restrict', amount: 'decimal:20,2', version: 'integer default:1', status: 'enum:active,superseded,cancelled default:active index', parent_id: 'id foreign:annual_institutional_budgets nullable onDelete:null', superseded_by: 'id foreign:annual_institutional_budgets nullable onDelete:null', modification_type: 'enum:initial,increase,decrease,adjustment default:initial', modification_reason: 'text nullable', resolution_number: 'string:100 nullable', created_by: 'id foreign:users nullable onDelete:null', modified_by: 'id foreign:users nullable onDelete:null', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'Goal, Process, Product, Activity, Purpose, Financing, Classifier, User:created_by, User:modified_by', hasMany: OfficeBudgetAssignment } }
+    OfficeBudgetAssignment: { year: 'year index', office_id: 'id foreign:offices onDelete:restrict', subunit_id: 'id foreign:subunits nullable onDelete:null', annual_institutional_budget_id: 'id foreign:annual_institutional_budgets onDelete:restrict', amount: 'decimal:20,2', version: 'integer default:1', status: 'enum:active,superseded,transferred,cancelled default:active index', parent_id: 'id foreign:office_budget_assignments nullable onDelete:null', superseded_by: 'id foreign:office_budget_assignments nullable onDelete:null', assignment_type: 'enum:initial,modification,transfer_in,transfer_out default:initial', comment: 'text nullable', related_transfer_id: 'id nullable', assigned_by: 'id foreign:users nullable onDelete:null', modified_by: 'id foreign:users nullable onDelete:null', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'Office, Subunit, AnnualInstitutionalBudget, User:assigned_by, User:modified_by', hasMany: ExpenseAllocation } }
+    ExpenseAllocation: { year: 'year index', expense_code: 'string:50 unique', office_budget_assignment_id: 'id foreign:office_budget_assignments onDelete:restrict', document_id: 'id foreign:documents nullable onDelete:null', subclassifier_id: 'id foreign:subclassifiers nullable onDelete:null', type: 'enum:goods,services,others default:others', report_number: 'string:255 nullable', siaf_code: 'string:255 nullable', reference_document: 'string:255 nullable', reference_document_2: 'string:255 nullable', reference_document_3: 'string:255 nullable', date: date, amount: 'decimal:20,2', description: 'text nullable', subject: 'text nullable', notes: 'text nullable', status: 'enum:draft,pending,approved,rejected,cancelled default:approved index', created_by: 'id foreign:users onDelete:restrict', approved_by: 'id foreign:users nullable onDelete:null', approved_at: 'timestamp nullable', rejection_reason: 'text nullable', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'OfficeBudgetAssignment, Document, Subclassifier, User:created_by, User:approved_by' } }
+    BudgetTransfer: { year: 'year index', transfer_code: 'string:50 unique', transaction_number: 'integer nullable', origin_office_budget_assignment_id: 'id foreign:office_budget_assignments onDelete:restrict', origin_office_id: 'id foreign:offices onDelete:restrict', origin_annual_budget_id: 'id foreign:annual_institutional_budgets onDelete:restrict', destination_office_budget_assignment_id: 'id foreign:office_budget_assignments onDelete:restrict', destination_office_id: 'id foreign:offices onDelete:restrict', destination_annual_budget_id: 'id foreign:annual_institutional_budgets onDelete:restrict', amount: 'decimal:20,2', reason: text, resolution_number: 'string:100 nullable', status: 'enum:draft,pending,approved,rejected,executed default:pending index', requested_by: 'id foreign:users onDelete:restrict', approved_by: 'id foreign:users nullable onDelete:null', requested_at: 'timestamp useCurrent', approved_at: 'timestamp nullable', executed_at: 'timestamp nullable', rejection_reason: 'text nullable', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'User:requested_by, User:approved_by' } }
+    ApprovalRequest: { year: 'year index', request_code: 'string:50 unique', request_type: 'enum:budget_assignment_create,budget_assignment_update,budget_assignment_delete,expense_create,expense_update,expense_delete,budget_modification,catalog_create,catalog_update,catalog_delete,transfer_request', related_table: 'string:100', related_id: 'id nullable', request_data: json, current_data: 'json nullable', office_id: 'id foreign:offices nullable onDelete:null', amount: 'decimal:20,2 nullable', reason: 'text nullable', status: 'enum:draft,pending,approved,rejected,cancelled default:pending index', requested_by: 'id foreign:users onDelete:restrict', reviewed_by: 'id foreign:users nullable onDelete:null', requested_at: 'timestamp useCurrent', reviewed_at: 'timestamp nullable', rejection_reason: 'text nullable', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'Office, User:requested_by, User:reviewed_by' } }
+    ActivityLog: { year: 'year index', user_id: 'id foreign:users onDelete:restrict', user_name: 'string:255', user_role: 'string:100 nullable', action: 'string:50', subject_type: 'string:100', subject_id: id, description: 'text nullable', old_values: 'json nullable', new_values: 'json nullable', ip_address: 'string:45 nullable', user_agent: 'text nullable', timestamps: false, created_at: 'timestamp useCurrent', relationships: { belongsTo: User } }
+    ImportBatch: { year: 'year index', batch_code: 'string:50 unique', import_type: 'enum:annual_budget,office_assignments,expenses,catalog_data', file_name: 'string:255', file_path: 'string:500', file_size: 'integer nullable', total_rows: integer, processed_rows: 'integer default:0', successful_rows: 'integer default:0', failed_rows: 'integer default:0', status: 'enum:pending,validating,processing,completed,failed,cancelled default:pending index', errors: 'json nullable', validation_summary: 'json nullable', imported_by: 'id foreign:users onDelete:restrict', started_at: 'timestamp nullable', completed_at: 'timestamp nullable', timestamps: timestamps, relationships: { belongsTo: 'User:imported_by', hasMany: ImportStaging } }
+    ImportStaging: { import_batch_id: 'id foreign:import_batches onDelete:cascade', row_number: integer, raw_data: json, parsed_data: 'json nullable', status: 'enum:pending,validated,imported,failed,skipped default:pending index', validation_errors: 'json nullable', imported_record_type: 'string:100 nullable', imported_record_id: 'id nullable', timestamps: false, created_at: 'timestamp useCurrent', relationships: { belongsTo: ImportBatch } }
+    SimulatedExpense: { year: 'year index', simulation_type: 'enum:procurement,accounting', office_id: 'id foreign:offices onDelete:restrict', goal_id: 'id foreign:goals nullable onDelete:null', financing_id: 'id foreign:financings nullable onDelete:null', classifier_id: 'id foreign:classifiers nullable onDelete:null', description: 'text nullable', amount: 'decimal:20,2', estimated_date: 'date nullable', notes: 'text nullable', is_approved: 'boolean default:false', converted_to_real: 'boolean default:false', real_expense_allocation_id: 'id foreign:expense_allocations nullable onDelete:null', created_by: 'id foreign:users onDelete:restrict', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: 'Office, Goal, Financing, Classifier, User:created_by, ExpenseAllocation:real_expense_allocation_id' } }
+    SequenceCounter: { year: year, sequence_type: 'enum:expense,transfer,approval_request,import_batch,simulation', current_value: 'integer default:0', last_generated_at: 'timestamp nullable', last_generated_code: 'string:50 nullable', timestamps: timestamps }
+    BudgetSummaryCache: { year: 'year index', office_id: 'id foreign:offices nullable onDelete:cascade', goal_id: 'id foreign:goals nullable onDelete:cascade', financing_id: 'id foreign:financings nullable onDelete:cascade', classifier_id: 'id foreign:classifiers nullable onDelete:cascade', summary_level: 'enum:institutional,office,goal,financing,classifier,detailed', total_budget: 'decimal:20,2 default:0', total_assigned: 'decimal:20,2 default:0', total_executed: 'decimal:20,2 default:0', total_available: 'decimal:20,2 default:0', execution_percentage: 'decimal:5,2 nullable', last_calculated_at: timestamp, is_valid: 'boolean default:true', timestamps: timestamps, relationships: { belongsTo: 'Office, Goal, Financing, Classifier' } }
