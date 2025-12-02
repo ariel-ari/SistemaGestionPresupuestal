@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('subunits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('office_id')->constrained()->onDelete('restrict');
-            $table->string('code', 20)->nullable();
-            $table->string('name', 255)->nullable();
+            $table->string('name', 255);
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->string('softDeletes');
+            $table->softDeletes();
             $table->timestamps();
         });
 

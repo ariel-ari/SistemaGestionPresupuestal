@@ -17,7 +17,6 @@ class Purpose extends Model
      * @var array
      */
     protected $fillable = [
-        'code',
         'name',
         'description',
         'is_active',
@@ -33,6 +32,8 @@ class Purpose extends Model
     {
         return [
             'id' => 'integer',
+            'name' => 'string',
+            'description' => 'string',
             'is_active' => 'boolean',
         ];
     }

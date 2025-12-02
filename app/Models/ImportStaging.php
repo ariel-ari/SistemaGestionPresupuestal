@@ -51,13 +51,13 @@ class ImportStaging extends Model
         ];
     }
 
-    public function importBatch(): BelongsTo
-    {
-        return $this->belongsTo(ImportBatch::class);
-    }
+    // public function importBatch(): BelongsTo
+    // {
+    //     return $this->belongsTo(ImportBatch::class);
+    // }
 
-    public function importedRecord(): BelongsTo
-    {
-        return $this->belongsTo(ImportedRecord::class);
-    }
+    // public function importedRecord(): BelongsTo
+    // {
+    //     return $this->belongsTo(ImportedRecord::class);
+    // }
 }

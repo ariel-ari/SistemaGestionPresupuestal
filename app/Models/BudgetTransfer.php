@@ -66,53 +66,53 @@ class BudgetTransfer extends Model
         ];
     }
 
-    public function requestedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function requestedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function approvedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function approvedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function originOfficeBudgetAssignment(): BelongsTo
-    {
-        return $this->belongsTo(OfficeBudgetAssignment::class);
-    }
+    // public function originOfficeBudgetAssignment(): BelongsTo
+    // {
+    //     return $this->belongsTo(OfficeBudgetAssignment::class);
+    // }
 
-    public function originOffice(): BelongsTo
-    {
-        return $this->belongsTo(Office::class);
-    }
+    // public function originOffice(): BelongsTo
+    // {
+    //     return $this->belongsTo(Office::class);
+    // }
 
-    public function originAnnualBudget(): BelongsTo
-    {
-        return $this->belongsTo(AnnualInstitutionalBudget::class);
-    }
+    // public function originAnnualBudget(): BelongsTo
+    // {
+    //     return $this->belongsTo(AnnualInstitutionalBudget::class);
+    // }
 
-    public function destinationOfficeBudgetAssignment(): BelongsTo
-    {
-        return $this->belongsTo(OfficeBudgetAssignment::class);
-    }
+    // public function destinationOfficeBudgetAssignment(): BelongsTo
+    // {
+    //     return $this->belongsTo(OfficeBudgetAssignment::class);
+    // }
 
-    public function destinationOffice(): BelongsTo
-    {
-        return $this->belongsTo(Office::class);
-    }
+    // public function destinationOffice(): BelongsTo
+    // {
+    //     return $this->belongsTo(Office::class);
+    // }
 
-    public function destinationAnnualBudget(): BelongsTo
-    {
-        return $this->belongsTo(AnnualInstitutionalBudget::class);
-    }
+    // public function destinationAnnualBudget(): BelongsTo
+    // {
+    //     return $this->belongsTo(AnnualInstitutionalBudget::class);
+    // }
 
-    public function requestedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function requestedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function approvedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function approvedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

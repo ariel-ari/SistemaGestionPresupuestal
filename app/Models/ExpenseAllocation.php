@@ -64,38 +64,38 @@ class ExpenseAllocation extends Model
         ];
     }
 
-    public function officeBudgetAssignment(): BelongsTo
-    {
-        return $this->belongsTo(OfficeBudgetAssignment::class);
-    }
+    // public function officeBudgetAssignment(): BelongsTo
+    // {
+    //     return $this->belongsTo(OfficeBudgetAssignment::class);
+    // }
 
-    public function document(): BelongsTo
-    {
-        return $this->belongsTo(Document::class);
-    }
+    // public function document(): BelongsTo
+    // {
+    //     return $this->belongsTo(Document::class);
+    // }
 
-    public function subclassifier(): BelongsTo
-    {
-        return $this->belongsTo(Subclassifier::class);
-    }
+    // public function subclassifier(): BelongsTo
+    // {
+    //     return $this->belongsTo(Subclassifier::class);
+    // }
 
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function approvedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function approvedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function approvedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function approvedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

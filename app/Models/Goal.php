@@ -19,8 +19,7 @@ class Goal extends Model
         'code',
         'name',
         'description',
-        'is_active',
-        
+        'is_active'
     ];
 
     /**
@@ -32,7 +31,10 @@ class Goal extends Model
     {
         return [
             'id' => 'integer',
-            'is_active' => 'boolean',
+            'code' => 'string',
+            'name' => 'string',
+            'description' => 'string',
+            'is_active' => 'boolean'
         ];
     }
 

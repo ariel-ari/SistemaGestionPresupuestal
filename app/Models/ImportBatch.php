@@ -54,18 +54,18 @@ class ImportBatch extends Model
         ];
     }
 
-    public function importedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function importedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function importedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function importedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function importStagings(): HasMany
-    {
-        return $this->hasMany(ImportStaging::class);
-    }
+    // public function importStagings(): HasMany
+    // {
+    //     return $this->hasMany(ImportStaging::class);
+    // }
 }

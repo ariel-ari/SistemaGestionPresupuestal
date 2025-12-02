@@ -32,6 +32,8 @@ class Document extends Model
     {
         return [
             'id' => 'integer',
+            'name' => 'string',
+            'description' => 'string',
             'is_active' => 'boolean',
         ];
     }

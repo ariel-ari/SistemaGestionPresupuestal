@@ -64,77 +64,77 @@ class AnnualInstitutionalBudget extends Model
         ];
     }
 
-    public function goal(): BelongsTo
-    {
-        return $this->belongsTo(Goal::class);
-    }
+    // public function goal(): BelongsTo
+    // {
+    //     return $this->belongsTo(Goal::class);
+    // }
 
-    public function process(): BelongsTo
-    {
-        return $this->belongsTo(Process::class);
-    }
+    // public function process(): BelongsTo
+    // {
+    //     return $this->belongsTo(Process::class);
+    // }
 
-    public function product(): BelongsTo
-    {
-        return $this->belongsTo(Product::class);
-    }
+    // public function product(): BelongsTo
+    // {
+    //     return $this->belongsTo(Product::class);
+    // }
 
-    public function activity(): BelongsTo
-    {
-        return $this->belongsTo(Activity::class);
-    }
+    // public function activity(): BelongsTo
+    // {
+    //     return $this->belongsTo(Activity::class);
+    // }
 
-    public function purpose(): BelongsTo
-    {
-        return $this->belongsTo(Purpose::class);
-    }
+    // public function purpose(): BelongsTo
+    // {
+    //     return $this->belongsTo(Purpose::class);
+    // }
 
-    public function financing(): BelongsTo
-    {
-        return $this->belongsTo(Financing::class);
-    }
+    // public function financing(): BelongsTo
+    // {
+    //     return $this->belongsTo(Financing::class);
+    // }
 
-    public function classifier(): BelongsTo
-    {
-        return $this->belongsTo(Classifier::class);
-    }
+    // public function classifier(): BelongsTo
+    // {
+    //     return $this->belongsTo(Classifier::class);
+    // }
 
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class,'created_by');
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class,'created_by');
+    // }
 
-    public function modifiedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, ',modified_by');
-    }
+    // public function modifiedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class, ',modified_by');
+    // }
 
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(AnnualInstitutionalBudget::class, 'parent_id');
-    }
+    // public function parent(): BelongsTo
+    // {
+    //     return $this->belongsTo(AnnualInstitutionalBudget::class, 'parent_id');
+    // }
 
-    public function supersededBy(): BelongsTo
-    {
-        return $this->belongsTo(AnnualInstitutionalBudget::class,'superseded_by');
-    }
+    // public function supersededBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(AnnualInstitutionalBudget::class,'superseded_by');
+    // }
 
-    public function children(): HasMany
-    {
-        return $this->hasMany(AnnualInstitutionalBudget::class, 'parent_id');
-    }
+    // public function children(): HasMany
+    // {
+    //     return $this->hasMany(AnnualInstitutionalBudget::class, 'parent_id');
+    // }
 
-    public function supersedes(): HasMany
-    {
-        return $this->hasMany(AnnualInstitutionalBudget::class, 'superseded_by');
-    }
+    // public function supersedes(): HasMany
+    // {
+    //     return $this->hasMany(AnnualInstitutionalBudget::class, 'superseded_by');
+    // }
 
-    public function officeBudgetAssignments(): HasMany
-    {
-        return $this->hasMany(OfficeBudgetAssignment::class);
-    }
+    // public function officeBudgetAssignments(): HasMany
+    // {
+    //     return $this->hasMany(OfficeBudgetAssignment::class);
+    // }
 
-    public function scopeActive($query){
-     return $query->where('status','active');   
-    }
+    // public function scopeActive($query){
+    //  return $query->where('status','active');   
+    // }
 }

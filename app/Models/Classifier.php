@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -51,5 +52,12 @@ class Classifier extends Model
     public function simulatedExpenses(): HasMany
     {
         return $this->hasMany(SimulatedExpense::class);
+    }
+
+    public function scopeWithActiveSubclassifiers(Builder $query): Builder
+    {
+        return $query->with(['subclassifiers' => function (HasMany $query){
+            $query->where('is_active', true);
+        }]);
     }
 }

@@ -59,43 +59,43 @@ class SimulatedExpense extends Model
         ];
     }
 
-    public function office(): BelongsTo
-    {
-        return $this->belongsTo(Office::class);
-    }
+    // public function office(): BelongsTo
+    // {
+    //     return $this->belongsTo(Office::class);
+    // }
 
-    public function goal(): BelongsTo
-    {
-        return $this->belongsTo(Goal::class);
-    }
+    // public function goal(): BelongsTo
+    // {
+    //     return $this->belongsTo(Goal::class);
+    // }
 
-    public function financing(): BelongsTo
-    {
-        return $this->belongsTo(Financing::class);
-    }
+    // public function financing(): BelongsTo
+    // {
+    //     return $this->belongsTo(Financing::class);
+    // }
 
-    public function classifier(): BelongsTo
-    {
-        return $this->belongsTo(Classifier::class);
-    }
+    // public function classifier(): BelongsTo
+    // {
+    //     return $this->belongsTo(Classifier::class);
+    // }
 
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function realExpenseAllocation(): BelongsTo
-    {
-        return $this->belongsTo(ExpenseAllocation::class);
-    }
+    // public function realExpenseAllocation(): BelongsTo
+    // {
+    //     return $this->belongsTo(ExpenseAllocation::class);
+    // }
 
-    public function realExpenseAllocation(): BelongsTo
-    {
-        return $this->belongsTo(ExpenseAllocation::class);
-    }
+    // public function realExpenseAllocation(): BelongsTo
+    // {
+    //     return $this->belongsTo(ExpenseAllocation::class);
+    // }
 
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

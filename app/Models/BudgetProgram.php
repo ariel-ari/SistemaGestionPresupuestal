@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Process extends Model
+class BudgetProgram extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -33,6 +33,9 @@ class Process extends Model
     {
         return [
             'id' => 'integer',
+            'code' => 'string',
+            'name' => 'string',
+            'description' => 'string',
             'is_active' => 'boolean',
         ];
     }

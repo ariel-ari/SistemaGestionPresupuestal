@@ -59,58 +59,58 @@ class OfficeBudgetAssignment extends Model
         ];
     }
 
-    public function office(): BelongsTo
-    {
-        return $this->belongsTo(Office::class);
-    }
+    // public function office(): BelongsTo
+    // {
+    //     return $this->belongsTo(Office::class);
+    // }
 
-    public function subunit(): BelongsTo
-    {
-        return $this->belongsTo(Subunit::class);
-    }
+    // public function subunit(): BelongsTo
+    // {
+    //     return $this->belongsTo(Subunit::class);
+    // }
 
-    public function annualInstitutionalBudget(): BelongsTo
-    {
-        return $this->belongsTo(AnnualInstitutionalBudget::class);
-    }
+    // public function annualInstitutionalBudget(): BelongsTo
+    // {
+    //     return $this->belongsTo(AnnualInstitutionalBudget::class);
+    // }
 
-    public function assignedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function assignedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function modifiedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function modifiedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(OfficeBudgetAssignment::class);
-    }
+    // public function parent(): BelongsTo
+    // {
+    //     return $this->belongsTo(OfficeBudgetAssignment::class);
+    // }
 
-    public function supersededBy(): BelongsTo
-    {
-        return $this->belongsTo(OfficeBudgetAssignment::class);
-    }
+    // public function supersededBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(OfficeBudgetAssignment::class);
+    // }
 
-    public function relatedTransfer(): BelongsTo
-    {
-        return $this->belongsTo(RelatedTransfer::class);
-    }
+    // public function relatedTransfer(): BelongsTo
+    // {
+    //     return $this->belongsTo(RelatedTransfer::class);
+    // }
 
-    public function assignedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function assignedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function modifiedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function modifiedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function expenseAllocations(): HasMany
-    {
-        return $this->hasMany(ExpenseAllocation::class);
-    }
+    // public function expenseAllocations(): HasMany
+    // {
+    //     return $this->hasMany(ExpenseAllocation::class);
+    // }
 }

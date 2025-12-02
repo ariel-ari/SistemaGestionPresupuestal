@@ -60,33 +60,33 @@ class ApprovalRequest extends Model
         ];
     }
 
-    public function office(): BelongsTo
-    {
-        return $this->belongsTo(Office::class);
-    }
+    // public function office(): BelongsTo
+    // {
+    //     return $this->belongsTo(Office::class);
+    // }
 
-    public function requestedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function requestedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function reviewedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function reviewedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function related(): BelongsTo
-    {
-        return $this->belongsTo(Related::class);
-    }
+    // public function related(): BelongsTo
+    // {
+    //     return $this->belongsTo(Related::class);
+    // }
 
-    public function requestedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function requestedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    public function reviewedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function reviewedBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

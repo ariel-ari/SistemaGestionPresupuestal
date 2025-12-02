@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20)->nullable();
-            $table->string('name', 255);
+            $table->string('name', 255)->unique();
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->string('softDeletes');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -33,6 +33,9 @@ class Financing extends Model
     {
         return [
             'id' => 'integer',
+            'code' => 'string',
+            'name' => 'string',
+            'description' => 'string',
             'is_active' => 'boolean',
         ];
     }
